@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: 'package-lock.json'
+          cache-dependency-path: 'sample-app/package-lock.json'
 
       - name: Print environment 
         run: |
@@ -72,22 +72,24 @@ jobs:
             echo "✅ Coverage report generated"
           else
             echo "⚠️ No coverage report found"
-          fi
 
   lint-check:
     name: Lint Check
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
       
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: 'sample-app/package-lock.json'
       
-      - working-directory: ./sample-app
+      - name: Install dependencies
+        working-directory: ./sample-app
         run: npm ci
       
       - name: Run ESLint
