@@ -51,6 +51,16 @@ jobs:
       - name: Build application
         working-directory: ./sample-app
         run: npm run build
+
+        # ✅ Add artifact creation after build
+      - name: Create artifact
+        run: echo "Build output" > output.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: output.txt
       
       - name: Run tests
         working-directory: ./sample-app
