@@ -33,4 +33,15 @@ jobs:
       
       - name: Print success message
         run: echo "✅ Workflow completed successfully!"
-# This comment is added to demonstrate a change in the workflow file.
+  # This comment is added to demonstrate a change in the workflow file.
+  test-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Access secret
+        run: |
+          secret_length=${#SECRET_VALUE}
+          echo "Secret length: ${secret_length}"
+        env:
+          SECRET_VALUE: ${{ secrets.TEST_SECRET }}
