@@ -23,8 +23,9 @@ jobs:
 
       - name: Run Tests
         run: npm test
-        working-directory: ./sample-
+        working-directory: ./sample-app
         
 
         #add comment for testing
-        
+
+        #comment 2 for testing
