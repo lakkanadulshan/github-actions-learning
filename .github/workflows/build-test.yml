@@ -52,15 +52,16 @@ jobs:
         working-directory: ./sample-app
         run: npm run build
 
-       # ✅ Add artifact creation after build
       - name: Create artifact
+        working-directory: ./sample-app
         run: echo "Build output" > output.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-output-${{ matrix.node-version }}
-          path: output.txt
+          path: sample-app/output.txt
+
 
       - name: Run tests
         working-directory: ./sample-app
@@ -122,16 +123,21 @@ jobs:
           echo "✅ All tests completed"
 
   download-artifact:
-    name: Download Artifact
+    name: Download Build Artifact
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: build-and-test  # depends on the build-and-test job
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-output-18.x
-          path: downloaded
+          name: build-output-18.x  # matches the artifact name from build-and-test
+          path: ./downloaded-artifact
 
-      - name: Show artifact content
-        run: cat downloaded/output.txt
+      - name: List downloaded files
+        run: ls -la ./downloaded-artifact
+
+
