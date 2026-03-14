@@ -52,7 +52,7 @@ jobs:
         working-directory: ./sample-app
         run: npm run build
 
-        # ✅ Add artifact creation after build
+       # ✅ Add artifact creation after build
       - name: Create artifact
         run: echo "Build output" > output.txt
 
@@ -61,7 +61,7 @@ jobs:
         with:
           name: build-output-${{ matrix.node-version }}
           path: output.txt
-      
+
       - name: Run tests
         working-directory: ./sample-app
         run: npm test
