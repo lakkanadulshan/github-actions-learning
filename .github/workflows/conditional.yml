@@ -1,0 +1,28 @@
+name: Conditional Execution
+
+# Trigger workflow on push to any branch
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  conditional-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # This step runs **only on the main branch**
+      
+      
+      - name: Deploy (main only)
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploying to production..."
+
+      # This step always runs
+      - name: Build or test
+        run: echo "This step runs on any branch"
