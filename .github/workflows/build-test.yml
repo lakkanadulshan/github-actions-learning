@@ -120,3 +120,18 @@ jobs:
           echo "🎯 Test Run Summary"
           echo "==================="
           echo "✅ All tests completed"
+
+  download-artifact:
+    name: Download Artifact
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output-18.x
+          path: downloaded
+
+      - name: Show artifact content
+        run: cat downloaded/output.txt
